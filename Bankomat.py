@@ -18,7 +18,7 @@ class Bankomat:
                     break
                 self.urun -= 1
         else: 
-            print("Kartangiz muddati tugagan. Biz uni blokladik.\nKartangizni yangisiga almashtirish uchun bankimiz ofislariga tashrif buyuring!")
+            print("Kartangizning muddati tugagan. Biz uni blokladik.\nKartangizni yangisiga almashtirish uchun bankimiz ofislariga tashrif buyuring!")
 
 
     def menyu(self):
@@ -30,12 +30,16 @@ class Bankomat:
             buyruq  = int(input(">>> "))
             if buyruq == 1:
                 print(self.balans())
+                self.func()
             elif buyruq == 2:
                 self.naqdPul()
+                self.func()
             elif buyruq == 3:
                 self.changePin()
+                self.func()
             elif buyruq == 4:
-                pass
+                self.smsXabarnoma()
+                self.func()
             elif buyruq == 5:
                 self.back()
             else:
@@ -59,9 +63,28 @@ class Bankomat:
         if int(input("Hozirgi parolingizni kiriting: ")) == self.karta.getPin():
             newPin = int(input("Yangi parolni kiriting: "))
             self.karta.setPin(newPin)
+            print("Parolingiz muvaffaqiyatli o'zgartirildi.")
+        else: 
+            print("Xato. Qaytadan urunib ko'ring.")
+
+    def smsXabarnoma(self):
+        tel = input("Telifon raqamingizni kiriting: ")
+        sms = int(input("Raqamingizga yuborilgan kodni kiriting: "))
+        if sms == sms:
+            print("Sms xabarnoma xizmati muvaffaqiyatli ulandi.")
 
     def back(self):
         self.menyu()
+
+    def func(self):
+        buyruq = int(input(f"""
+1 - orqaga               2 - chiqish
+>>>"""))
+        if buyruq == 1:
+            self.back()
+        elif buyruq == 2:
+            exit()
+        
 
 
 
@@ -83,9 +106,6 @@ class Karta:
 
     def setPin(self, newPin):
         self.__pin = newPin
-
-
-
 
 
 k1 = Karta(8600145875982405, 10.2028)
